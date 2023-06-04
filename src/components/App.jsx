@@ -9,10 +9,8 @@ import { getContacts } from 'redux/selectors';
 
 
 export default function App() {
-
   const dispatch = useDispatch()
   const contacts = useSelector(getContacts)
-
 
   const onHandlerSubmitForm = data => {
     const existingContact = contacts.find(
@@ -31,8 +29,6 @@ export default function App() {
 
     dispatch(addContact(contact))
   };
-
-
 
   return (
     <>
