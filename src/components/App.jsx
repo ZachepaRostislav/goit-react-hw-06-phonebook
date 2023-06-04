@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+
 import Form from './Form';
 import Contacts from './Contacts';
 import FindContact from './FindContact';
@@ -31,20 +31,6 @@ export default function App() {
 
     dispatch(addContact(contact))
   };
-
-
-  useEffect(() => {
-    const contacts = localStorage.getItem('contacts');
-    const parseContacts = JSON.parse(contacts);
-    if (parseContacts) {
-      // setContacts(parseContacts);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
 
 
 
