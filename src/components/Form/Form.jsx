@@ -1,13 +1,37 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 import { FillForm, FormLabel, FormInput, FormBtn } from './Form.styled';
 
-export default function Form({ onSubmit }) {
+export default function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch()
+  const contacts = useSelector(getContacts)
 
   const onHandleInputChange = e => {
     const { name, value } = e.currentTarget;
     name === 'name' ? setName(value) : setNumber(value);
+  };
+
+  const onSubmit = data => {
+    const existingContact = contacts.find(
+      user => user.name.toLowerCase() === data.name.toLowerCase()
+    );
+
+    if (existingContact) {
+      alert(`${existingContact.name} is already in contacts`);
+      return;
+    }
+
+    const contact = {
+      id: nanoid(),
+      ...data,
+    };
+
+    dispatch(addContact(contact))
   };
 
   const onHadleSubmitForm = e => {
